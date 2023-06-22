@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Список продуктів</title>
-    <!-- Підключення CSS стилів -->
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Товари - Мій Інтернет-магазин</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <h1>Список продуктів</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Назва</th>
-            <th>Ціна</th>
-            <th>Дії</th>
-        </tr>
-        <?php foreach ($products as $product): ?>
-            <tr>
-                <td><?php echo $product['id']; ?></td>
-                <td><?php echo $product['name']; ?></td>
-                <td><?php echo $product['price']; ?></td>
-                <td>
-                    <a href="edit.php?id=<?php echo $product['id']; ?>">Редагувати</a>
-                    <a href="delete.php?id=<?php echo $product['id']; ?>">Видалити</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-    <a href="create.php">Додати новий продукт</a>
+    <header>
+        <h1>Мій Інтернет-магазин</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.php">Головна</a></li>
+            <li><a href="products.php">Товари</a></li>
+            <li><a href="news.php">Новини</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <h2>Наші товари</h2>
+        <?php
+        require_once 'config.php';
+        require_once 'models/Product.php';
+        
+        // Отримання списку товарів з бази даних
+        $products = Product::getAllProducts();
+        
+        // Виведення списку товарів
+        foreach ($products as $product) {
+            echo "<div class='product'>";
+            echo "<h3>" . $product['name'] . "</h3>";
+            echo "<p>" . $product['description'] . "</p>";
+            echo "<p class='price'>" . $product['price'] . " грн</p>";
+            echo "</div>";
+        }
+        ?>
+    </main>
+    
+    <footer>
+        <p>© 2023 Мій Інтернет-магазин. Усі права захищено.</p>
+    </footer>
 </body>
 </html>

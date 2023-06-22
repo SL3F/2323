@@ -1,5 +1,6 @@
 <?php
 // models/Product.php
+require_once 'DbConnection.php';
 
 class Product
 {
