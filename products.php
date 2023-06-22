@@ -1,3 +1,11 @@
+<?php
+require_once 'config.php';
+require_once 'models/Product.php';
+
+$products = Product::getAll();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,22 +27,13 @@
     
     <main>
         <h2>Наші товари</h2>
-        <?php
-        require_once 'config.php';
-        require_once 'models/Product.php';
-        
-        // Отримання списку товарів з бази даних
-        $products = Product::getAllProducts();
-        
-        // Виведення списку товарів
-        foreach ($products as $product) {
-            echo "<div class='product'>";
-            echo "<h3>" . $product['name'] . "</h3>";
-            echo "<p>" . $product['description'] . "</p>";
-            echo "<p class='price'>" . $product['price'] . " грн</p>";
-            echo "</div>";
-        }
-        ?>
+        <?php foreach ($products as $product): ?>
+            <div class='product'>
+                <h3><?php echo $product->getName(); ?></h3>
+                <p><?php echo $product->getDescription(); ?></p>
+                <p class='price'><?php echo $product->getPrice(); ?> грн</p>
+            </div>
+        <?php endforeach; ?>
     </main>
     
     <footer>

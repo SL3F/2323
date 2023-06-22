@@ -2,8 +2,7 @@
 require_once 'config.php';
 require_once 'models/News.php';
 
-// Отримуємо список новин з бази даних
-$newsList = News::getAll();
+$news = News::getAll();
 
 ?>
 
@@ -28,16 +27,15 @@ $newsList = News::getAll();
     
     <main>
         <h2>Новини</h2>
-        <?php
-        // Виведення списку новин з бази даних
-        foreach ($news as $item) {
-            echo "<div class='news-item'>";
-            echo "<h3>" . $item['title'] . "</h3>";
-            echo "<p>" . $item['content'] . "</p>";
-            echo "<p class='date'>Дата публікації: " . $item['publish_date'] . "</p>";
-            echo "</div>";
-        }
-        ?>
+        <?php foreach ($news as $item): ?>
+            <div class="news-item">
+                <h3><?php echo $item->getTitle(); ?></h3>
+                <p><?php echo $item->getContent(); ?></p>
+                <p class="date"><?php echo $item->getDate(); ?></p>
+                <a href="edit_news.php?id=<?php echo $item->getId(); ?>">Редагувати</a>
+                <a href="delete_news.php?id=<?php echo $item->getId(); ?>">Видалити</a>
+            </div>
+        <?php endforeach; ?>
     </main>
     
     <footer>
@@ -45,4 +43,3 @@ $newsList = News::getAll();
     </footer>
 </body>
 </html>
-
